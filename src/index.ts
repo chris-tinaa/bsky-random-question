@@ -1,6 +1,10 @@
 import Bot from "./lib/bot.js";
 import getPostText from "./lib/getPostText.js";
 
-const text = await Bot.run(getPostText, { dryRun: true });
+const postText = getPostText
 
-console.log(`[${new Date().toISOString()}] Posted: "${text}"`);
+if (postText.length > 0) {
+    const text = await Bot.run(getPostText, { dryRun: true });
+    console.log(`[${new Date().toISOString()}] Posted: "${text}"`);
+}
+
