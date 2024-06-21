@@ -1,34 +1,16 @@
-// Function to get a random question index
 function getRandomQuestionIndex() {
-  // Check if there are questions left to ask
   if (questions.length === 0) {
-    return -1; // No more questions to ask
+    return -1; 
   }
-
-  // Generate a random index to pick a question
   return Math.floor(Math.random() * questions.length);
 }
 
-// Async function to get and return a random question as text
 export default async function getPostText() {
-  // Get a random index for a question
   const randomIndex = getRandomQuestionIndex();
-
-  // If no more questions left, return null
   if (randomIndex === -1) {
     return '';
   }
-
-  // Get the random question from the questions array
-  const randomQuestion = questions[randomIndex];
-
-  // Move the question to the posted array
-  posted.push(randomQuestion);
-
-  // Remove the question from the questions array
-  questions.splice(randomIndex, 1);
-
-  return randomQuestion;
+  return questions[randomIndex];
 }
 
 
@@ -248,6 +230,3 @@ const questions = [
   "Suka mengikuti trend fashion?",
   "Apa yang paling kamu sukai dari sains?"
 ];
-
-// eslint-disable-next-line sonarjs/no-unused-collection
-const posted = []
