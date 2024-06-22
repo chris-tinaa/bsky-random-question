@@ -57,7 +57,6 @@ export default class Bot {
     const bot = new Bot(service);
     await bot.login(bskyAccount);
     let text = await getPostText();
-    console.log(dryRun)
     if (!dryRun) {
       await bot.post(text);
     } else {
