@@ -2,13 +2,12 @@ name: "Post to Bluesky"
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
     - cron: "0 */2 * * *"
 
 jobs:
   fetchSheetData:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' && github.event.schedule == '*/1 * * * *'  # Run every 1 minute
+    if: github.event_name == 'getSheetData'
   
     steps:
       - name: Checkout code
