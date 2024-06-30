@@ -17,15 +17,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build TypeScript
-        run: npm run build
-      
-      - name: Compile TypeScript
-        run: npm start
+      - run: npm ci
+      - run: npm run build
+      - run: npm start
       
       - name: Fetch Sheet Data
         run: node dist/getSheetQuestion.js
@@ -44,15 +38,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build TypeScript
-        run: npm run build
-      
-      - name: Compile TypeScript
-        run: npm start
+      - run: npm ci
+      - run: npm run build
+      - run: npm start
       
       - name: Run Post Task
         run: node dist/getRandomQuestion.js
