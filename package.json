@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "@atproto/api": "^0.2.11",
+    "google-spreadsheet": "^4.1.2",
+    "googleapis": "^140.0.0",
     "zod": "^3.21.4"
   }
 }
