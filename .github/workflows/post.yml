@@ -27,7 +27,9 @@ jobs:
         run: node dist/getSheetQuestion.js
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
+          
   runPostTask:
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule' && github.event.schedule == '0 */2 * * *'  # Run every 2 hours
