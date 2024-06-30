@@ -1,7 +1,7 @@
 import { google } from "googleapis";
 
 export async function getGoogleAuth(scopes: string[]) {
-    const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
+    const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
     if (!credentialsBase64) {
         throw new Error('Google credentials not found in environment variables.');
     }
