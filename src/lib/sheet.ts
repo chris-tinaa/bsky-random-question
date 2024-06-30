@@ -1,7 +1,13 @@
 import { google } from "googleapis";
-import credentials from '../randomquestions-7cd03699dd56.json' assert { type: "json" };
 
 export async function getGoogleAuth(scopes: string[]) {
+    const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
+    if (!credentialsBase64) {
+        throw new Error('Google credentials not found in environment variables.');
+    }
+
+    const credentials = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('utf-8'));
+
     return await google.auth.getClient({
         projectId: "looting-corner",
         credentials: credentials,
