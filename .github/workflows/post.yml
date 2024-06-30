@@ -3,7 +3,9 @@ name: "Post to Bluesky"
 on:
   schedule:
     - cron: "0 */2 * * *"
-
+  repository_dispatch:
+    types: [getSheetData]
+    
 jobs:
   fetchSheetData:
     runs-on: ubuntu-latest
