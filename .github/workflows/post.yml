@@ -3,12 +3,11 @@ name: "Post to Bluesky"
 on:
   schedule:
     - cron: "0 */2 * * *"
-  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   fetchSheetData:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'getSheetData'  # Trigger manually or by custom event
+    if: github.event_name == 'getSheetData'
   
     steps:
       - name: Checkout code
@@ -29,7 +28,7 @@ jobs:
 
   runPostTask:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' && github.event.schedule == '0 */2 * * *' || github.event_name == 'workflow_dispatch'  # Run every 2 hours or manually
+    if: github.event_name == 'schedule' && github.event.schedule == '0 */2 * * *'  # Run every 2 hours
   
     steps:
       - name: Checkout code
@@ -48,3 +47,4 @@ jobs:
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
+
