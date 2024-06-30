@@ -2,21 +2,61 @@ name: "Post to Bluesky"
 
 on:
   schedule:
+    - cron: "*/1 * * * *"
     - cron: "0 */2 * * *"
 
 jobs:
-  build:
+  fetchSheetData:
     runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '*/1 * * * *'  # Run every 1 minute
+  
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci
-      - run: npm run build
-      - name: Send post
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build TypeScript
+        run: npm run build
+      
+      - name: Compile TypeScript
         run: npm start
+      
+      - name: Fetch Sheet Data
+        run: node dist/getSheetQuestion.js
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+  runPostTask:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 */2 * * *'  # Run every 2 hours
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build TypeScript
+        run: npm run build
+      
+      - name: Compile TypeScript
+        run: npm start
+      
+      - name: Run Post Task
+        run: node dist/getRandomQuestion.js
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
