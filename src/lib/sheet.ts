@@ -1,5 +1,4 @@
 import { google } from "googleapis";
-
 export async function getGoogleAuth(scopes: string[]) {
     const credentialsBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
     if (!credentialsBase64) {
@@ -44,6 +43,7 @@ export async function getSheetData() {
         });
 
         const rows = dataResponse.data.values;
+
         if (!rows || rows.length === 0) {
             console.log("No data found.");
             return '';
@@ -78,7 +78,12 @@ export async function getSheetData() {
             range: clearRange,
         });
 
-        return 'jwb! '+ rows[2];
+        if (rows[0][2]) {
+            return 'jwb! '+ rows[0][2];
+        } else {
+            return '';
+        }
+        
     } catch (error: any) {
         console.error("Error fetching sheet data:", error.message);
         return '';
